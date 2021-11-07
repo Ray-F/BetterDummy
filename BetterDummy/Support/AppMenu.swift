@@ -45,8 +45,9 @@ class AppMenu {
     let updateItem = NSMenuItem(title: "Check for updates...", action: #selector(app.updaterController.checkForUpdates(_:)), keyEquivalent: "")
     updateItem.target = app.updaterController
     self.appMenu.addItem(updateItem)
-    self.appMenu.addItem(NSMenuItem(title: "About BetterDummy", action: #selector(app.handleAbout(_:)), keyEquivalent: ""))
+    self.appMenu.addItem(NSMenuItem(title: "About BetterDummy (RF)", action: #selector(app.handleAbout(_:)), keyEquivalent: ""))
     self.appMenu.addItem(NSMenuItem(title: "Support the project...", action: #selector(app.handleDonate(_:)), keyEquivalent: ""))
+    self.addCreateAllMenuItem()
     self.appMenu.addItem(NSMenuItem.separator())
     self.appMenu.addItem(NSMenuItem(title: "Quit BetterDummy", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
     self.populateNewMenu(newMenu)
@@ -93,21 +94,19 @@ class AppMenu {
         first = false
       }
     }
-
-    self.manageMenu.addItem(NSMenuItem.separator())
-    addCreateAllMenuItem()
   }
   
   func addCreateAllMenuItem() {
     let allHeaderItem = NSMenuItem()
     let attrsHeader: [NSAttributedString.Key: Any] = [.foregroundColor: NSColor.headerTextColor, .font: NSFont.boldSystemFont(ofSize: 13)]
     allHeaderItem.attributedTitle = NSAttributedString(string: "Manage all dummies", attributes: attrsHeader)
-    let connectItem = NSMenuItem(title: "Connect all dummies", action: #selector(app.handleConnectAllDummy(_:)), keyEquivalent: "")
-    let disconnectItem = NSMenuItem(title: "Disconnect all dummies", action: #selector(app.handleDisconnectAllDummy(_:)), keyEquivalent: "")
-    self.manageMenu.addItem(allHeaderItem)
-    self.manageMenu.addItem(connectItem)
-    self.manageMenu.addItem(disconnectItem)
     
+    let disconnect = NSMenuItem(title: "Disconnect all dummies", action: #selector(app.handleDisconnectAllDummy(_:)), keyEquivalent: "")
+    let connect = NSMenuItem(title: "Connect all dummies", action: #selector(app.handleConnectAllDummy(_:)), keyEquivalent: "")
+    
+    self.appMenu.addItem(NSMenuItem.separator())
+    self.appMenu.addItem(disconnect)
+    self.appMenu.addItem(connect)
   }
 
   func getResolutionSubmenuItem(_ dummy: Dummy) -> NSMenuItem {

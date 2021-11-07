@@ -22,7 +22,7 @@ class DummyManager {
 
   static func updateDummyDefinitions() {
     self.dummyDefinitions = [
-      10: DummyDefinition(16, 9, 2, self.refreshRates, "16:9 (HD/4K/5K/6K)", false),
+      10: DummyDefinition(16, 9, 16, self.refreshRates, "16:9 (HD/4K/5K/6K)", false),
 //      20: DummyDefinition(16, 10, 2, self.refreshRates, "16:10 (W*XGA)", false),
 //      30: DummyDefinition(16, 12, 2, self.refreshRates, "4:3 (VGA, iPad)", false),
 //      40: DummyDefinition(256, 135, 2, self.refreshRates, "17:9 (4K-DCI)", true),
