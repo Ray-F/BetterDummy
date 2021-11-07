@@ -113,6 +113,46 @@ class AppDelegate: NSObject, NSApplicationDelegate, SPUUpdaterDelegate {
       self.saveSettings()
     }
   }
+  
+  /**
+   Connects all dummies.
+   */
+  @objc func handleConnectAllDummy(_ sender: AnyObject?) {
+    var failed = false
+    
+    DummyManager.dummies.forEach { i, dummy in
+      if (!dummy.isConnected) {
+        if !dummy.connect() {
+          failed = true
+        }
+      }
+    }
+    
+    if (failed) {
+      let alert = NSAlert()
+      alert.alertStyle = .warning
+      alert.messageText = "Unable to Connect Dummy"
+      alert.informativeText = "An error occured during connecting Dummy."
+      alert.runModal()
+    }
+    
+    self.menu.repopulateManageMenu()
+    self.saveSettings()
+  }
+  
+  /**
+   * Disconnects all current dummies.
+   */
+  @objc func handleDisconnectAllDummy(_ sender: AnyObject?) {
+    DummyManager.dummies.forEach { i, dummy in
+      if (dummy.isConnected) {
+       dummy.disconnect()
+      }
+    }
+    
+    self.menu.repopulateManageMenu()
+    self.saveSettings()
+  }
 
   @objc func handleConnectDummy(_ sender: AnyObject?) {
     if let menuItem = sender as? NSMenuItem {
